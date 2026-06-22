@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duelground - Kumpulan Tips Bertarung, Research By:RAD_BM </title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e74c3c;
+            --primary-bright: #ff6b6b;
+            --primary-glow: #c0392b;
+            --accent: #ff8a80;
+            --accent2: #fadbd8;
+            --gold: #f0e68c;
+            --gold-bright: #ffd700;
+            --bg-dark: #0f0a0a;
+            --bg-card: #191212;
+            --bg-card2: #221818;
+            --bg-card3: #2b1d1d;
+            --text: #f2e8e8;
+            --text-muted: #ab9797;
+            --red: #ff3b30;
+            --green: #2ecc71;
+            --border: rgba(231, 76, 60, 0.25);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ─── Background FX ─── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(231,76,60,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(192,57,43,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(120,40,40,0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ─── Password Screen ─── */
+        #password-screen {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at center, #240a0a 0%, #0f0a0a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            gap: 0;
+        }
+
+        .lock-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+            animation: pulse-lock 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-lock {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(231,76,60,0.4)); }
+            50% { transform: scale(1.08); filter: drop-shadow(0 0 18px rgba(231,76,60,0.9)); }
+        }
+
+        #password-screen h2 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 28px;
+            color: var(--gold-bright);
+            margin-bottom: 8px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        #password-screen p.sub {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 28px;
+            letter-spacing: 1px;
+        }
+
+        .input-wrap {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        input[type="password"] {
+            padding: 14px 20px;
+            font-size: 17px;
+            font-family: 'Exo 2', sans-serif;
+            width: 300px;
+            background: rgba(231, 76, 60, 0.08);
+            border: 1.5px solid rgba(231, 76, 60, 0.4);
+            border-radius: 10px;
+            color: #fff;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            letter-spacing: 2px;
+        }
+ 
+        input[type="password"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 18px rgba(231, 76, 60, 0.35);
+        }
+ 
+        input[type="password"]::placeholder { color: rgba(255,255,255,0.2); letter-spacing: 0; }
+ 
+        .btn-enter {
+            padding: 13px 40px;
+            font-size: 15px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 4px 20px rgba(231, 76, 60, 0.3);
+        }
+ 
+        .btn-enter:hover {
+            background: linear-gradient(135deg, #e74c3c, #ff6b6b);
+            box-shadow: 0 4px 28px rgba(231, 76, 60, 0.55);
+            transform: translateY(-1px);
+        }
+
+        #error-msg {
+            color: var(--red);
+            font-size: 13px;
+            margin-top: 12px;
+            min-height: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ─── Main Content ─── */
+        #main-content {
+            position: relative;
+            z-index: 1;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+        }
+
+        .hidden { display: none !important; }
+
+        /* ─── Header ─── */
+        .site-header {
+            text-align: center;
+            margin-bottom: 44px;
+            animation: fadeDown 0.7s ease both;
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .site-header h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: clamp(26px, 5vw, 40px);
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold-bright);
+            text-shadow: 0 0 30px rgba(255,215,0,0.35);
+            line-height: 1.2;
+        }
+
+        .site-header .tagline {
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .header-divider {
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            margin: 18px auto 0;
+        }
+
+        /* ─── Section ─── */
+        .section {
+            margin-bottom: 28px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            animation: fadeUp 0.6s ease both;
+            transition: box-shadow 0.3s;
+        }
+
+        .section:hover {
+            box-shadow: 0 0 30px rgba(231, 76, 60, 0.12);
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section:nth-child(1) { animation-delay: 0.05s; }
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.15s; }
+        .section:nth-child(4) { animation-delay: 0.2s; }
+        .section:nth-child(5) { animation-delay: 0.25s; }
+        .section:nth-child(6) { animation-delay: 0.3s; }
+        .section:nth-child(7) { animation-delay: 0.35s; }
+        .section:nth-child(8) { animation-delay: 0.4s; }
+        .section:nth-child(9) { animation-delay: 0.45s; }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 22px;
+            background: linear-gradient(90deg, rgba(231, 76, 60, 0.18) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .section-header:hover {
+            background: linear-gradient(90deg, rgba(231, 76, 60, 0.28) 0%, transparent 100%);
+        }
+
+        .section-icon {
+            font-size: 22px;
+            width: 36px;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-bright);
+            flex: 1;
+        }
+
+        .toggle-arrow {
+            color: var(--primary);
+            font-size: 14px;
+            transition: transform 0.3s;
+        }
+
+        .section.collapsed .toggle-arrow { transform: rotate(-90deg); }
+
+        .section-body {
+            padding: 18px 22px 22px;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s, opacity 0.3s;
+            max-height: 2000px;
+            opacity: 1;
+        }
+
+        .section.collapsed .section-body {
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            opacity: 0;
+        }
+
+        /* ─── Tip Items ─── */
+        .tip-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tip-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            background: var(--bg-card2);
+            border: 1px solid rgba(231, 76, 60, 0.12);
+            border-radius: 9px;
+            padding: 12px 15px;
+            font-size: 15px;
+            line-height: 1.6;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .tip-item:hover {
+            border-color: rgba(231, 76, 60, 0.35);
+            background: var(--bg-card3);
+        }
+
+        .tip-bullet {
+            color: var(--primary);
+            font-size: 16px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        strong, .kw {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(231, 76, 60, 0.2);
+            color: var(--primary-bright);
+            font-size: 11px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            vertical-align: middle;
+            margin-left: 6px;
+        }
+
+        .tag.new { background: rgba(231,76,60,0.2); color: #e07070; }
+        .tag.advanced { background: rgba(255,215,0,0.12); color: var(--gold); }
+
+
+        /* ─── Table (Summary) ─── */
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .summary-table th {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--primary-bright);
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            background: rgba(231, 76, 60, 0.08);
+        }
+
+        .summary-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(231, 76, 60, 0.08);
+            color: var(--text);
+        }
+
+        .summary-table tr:last-child td { border-bottom: none; }
+        .summary-table tr:hover td { background: rgba(231, 76, 60, 0.06); }
+
+        .status-ok { color: var(--green); font-weight: 600; }
+        .status-new { color: #e07070; font-weight: 600; }
+        .status-warn { color: var(--gold); font-weight: 600; }
+
+        /* ─── Footer ─── */
+        .footer {
+            text-align: center;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .footer .highlight {
+            color: var(--primary-bright);
+            font-weight: 600;
+        }
+
+        .footer .copyright {
+            margin-top: 16px;
+            font-size: 12px;
+            color: rgba(231, 76, 60, 0.5);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 600px) {
+            #main-content { padding: 24px 14px 50px; }
+            .section-header { padding: 14px 16px; }
+            .section-body { padding: 14px 16px 18px; }
+            .tip-item { font-size: 14px; padding: 10px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Password Screen ── -->
+<div id="password-screen">
+    <div class="lock-icon">🔐</div>
+    <h2>Duelground Tips</h2>
+    <p class="sub">Masukkan password untuk melanjutkan</p>
+    <div class="input-wrap">
+        <input type="password" id="pass-input" placeholder="Password..." autofocus>
+    </div>
+    <button class="btn-enter" onclick="checkPassword()">⚔ Masuk</button>
+    <p id="error-msg"></p>
+</div>
+
+<!-- ── Main Content ── -->
+<div id="main-content" class="hidden">
+<div id="main-content-inner">
+
+    <div class="site-header">
+        <h1>⚔ Duelground — Kumpulan Tips Bertarung</h1>
+        <p class="tagline">Panduan Lengkap &amp; Advanced · Edisi Terbaru</p>
+        <p class="tagline">Research by: yamxray</p>
+	<div class="header-divider"></div>
+    </div>
+
+    <!-- 1. Parry & Defense -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">🛡️</span>
+            <h2>Parry &amp; Defense</h2>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="section-body">
+            <ul class="tip-list">
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Saat musuh <strong>angkat parry</strong> → langsung <strong>hit</strong> — semakin sering mereka parry, semakin besar kepanikan yang terbentuk. Manfaatkan momentum ini.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Saat musuh <strong>dash</strong> → langsung <strong>hit</strong> — selama animasi dash, parry mereka tidak aktif, jadi ini window bersih untuk menyerang.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Parry sebelum menyerang</strong> — selalu tutupi celah pembukaanmu sendiri sebelum melancarkan serangan pertama.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Setelah block/parry berhasil → <strong>jangan langsung attack</strong>. Beri delay sebentar, baca reaksi lawan, baru serang. Serangan terburu-buru mudah di-read.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Kena parry di opening? → <strong>Dash mundur</strong>, bukan maju atau samping. Jauhi zona pukul lawan, lalu baca pola selanjutnya.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Jika <strong>Shield/Posture di bawah 50%</strong> → mundur segera. Jangan paksa maju karena satu hit saat posture kritis bisa langsung break dan memberi lawan kesempatan finisher.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Posture sendiri kritis? → <strong>Prioritaskan dodge saja</strong>, bukan parry. Satu kesalahan parry saat posture rendah = langsung break. Fokus ke recovery dulu.</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 2. Parry Baiting (NEW) -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">🎭</span>
+            <h2>Parry Baiting <span class="tag new">New</span></h2>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="section-body">
+            <ul class="tip-list">
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Fake pressure</strong>: pura-pura mau menyerang → cancel/delay → tunggu lawan parry lebih dulu → saat mereka dalam animasi cooldown parry → <strong>langsung hit</strong>. Ini salah satu teknik paling mematikan.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Lawan yang <strong>sering parry/spam parry</strong> sangat rentan di-bait. Lakukan fake pressure 2–3 kali berturut-turut untuk membangun kebiasaan mereka, lalu abuse dengan serangan nyata saat mereka terlanjur parry.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Step-in lalu step-out</strong>: masuk ke range serang → lawan parry → kamu keluar → tunggu cooldown mereka habis → masuk lagi dan hit. Efektif untuk menguras stamina mental lawan.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Kombinasikan bait dengan <strong>switch tempo</strong>: setelah dua kali fake, ganti menjadi serangan nyata dengan timing berbeda. Lawan akan bingung membaca pola aslimu.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Jangan over-bait — kalau lawan sadar dan mulai berhenti parry duluan, ubah strategi. Bait hanya efektif kalau lawan tidak sadar sedang di-condition.</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 3. Combo & Attack Timing -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">⚡</span>
+            <h2>Combo &amp; Attack Timing</h2>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="section-body">
+            <ul class="tip-list">
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Opening attack: <strong>delay di hit ke-2</strong> — jangan langsung combo penuh. Ini membuat lawan sulit membaca kapan gelombang serangan berikutnya datang.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Kalau opening pertama tidak kena parry → <strong>lanjutkan combo</strong> dengan percaya diri. Momentum ada di pihakmu.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Mix tempo</strong> combo: variasikan delay, switch antara light–heavy, jangan spam satu pola. Predictability adalah musuh terbesar attacker.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Gunakan <strong>Heavy Attack</strong> hanya untuk finishing atau saat lawan sedang panik/stunned — heavy lebih mudah di-parry saat lawan dalam kondisi siap.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Jump Attack</strong> → tahan delay saat turun. Efek ini mengacaukan timing parry lawan karena kebanyakan player parry saat kamu melompat, bukan saat landing.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Counter jump attack lawan → <strong>jump attack balik sebelum mereka mendarat</strong> (clash mid-air). Tapi jika terlambat, gunakan alternatif: dash masuk ke bawah mereka saat di udara sehingga mereka mendarat di belakangmu, lalu balik dan hit.</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 4. Posture Management (NEW) -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">💠</span>
+            <h2>Posture &amp; Shield Management <span class="tag advanced">Advanced</span></h2>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="section-body">
+            <ul class="tip-list">
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Abuse posture lawan yang rendah</strong>: kalau posture lawan sudah di bawah 30%, jangan beri jeda. Tekan terus tanpa henti untuk force break — satu break besar lebih valuable dari panjangnya durasi fight.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Posturmu sendiri rendah? → <strong>Jangan parry sama sekali</strong>. Satu parry yang gagal saat posture kritis = instant break. Fokus ke dodge/block pasif saja sambil recovery.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Pahami <strong>kecepatan regenerasi posture</strong>: posture pulih saat kamu tidak kena hit. Jadi saat mundur untuk recovery, pastikan benar-benar aman dari hit ringan sekalipun.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Pantau bar posture lawan secara aktif</strong>, bukan hanya HP. Lawan yang HP-nya masih tinggi tapi posturnya kritis jauh lebih mudah di-break daripada lawan yang HP-nya rendah tapi posturnya penuh.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Perfect Parry = <strong>posture break besar</strong> pada lawan + window punish yang lebar. Pelajari timing perfect parry sebagai investasi jangka panjang.</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 5. Movement & Positioning -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">🎯</span>
+            <h2>Movement &amp; Positioning</h2>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="section-body">
+            <ul class="tip-list">
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Control the center</strong> selalu — siapa yang menguasai tengah arena mengontrol jarak, angle serangan, dan pilihan escape lawan.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Saat <strong>dikejar</strong>: jangan sampai terpojok ke pinggir. Dash ke tengah arena dan reorganize posisi.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Saat <strong>mengejar</strong>: tetap di tengah agar lawan terdesak ke tepi — di tepi, pilihan gerak mereka terbatas.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Chase dengan <strong>zigzag/curve</strong>, jangan lurus — lari lurus mudah diprediksi dan mudah di-hit saat lawan berbalik.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Mendekat selalu sambil <strong>siap parry/block</strong> — jangan pernah approach dengan tangan kosong terbuka.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Counter jump attack via udara: jika kamu terlambat, <strong>dash masuk ke bawah lawan</strong> saat mereka di udara → mereka landing di belakangmu → balik dan punish. Teknik ini sering mengejutkan lawan.</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 6. Anti-Jump Attack (NEW) -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">🦅</span>
+            <h2>Anti-Jump Attack <span class="tag new">New</span></h2>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="section-body">
+            <ul class="tip-list">
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Jump attack balik</strong> sebelum mereka mendarat (clash di udara) — opsi paling agresif dan mematikan kalau timing pas.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Dash ke bawah lawan</strong> saat mereka sedang di udara → mereka landing di belakangmu → langsung balik dan hit. Efektif karena kebanyakan jump attacker tidak siap di-follow dari arah balik.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Parry tepat di titik landing</strong> — window parry di momen landing cukup lebar. Ini opsi paling aman jika kamu ragu soal timing clash di udara.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Jika tidak yakin, <strong>mundur jauh</strong> saat melihat lawan melompat — biarkan mereka landing tanpa mengenaimu, lalu punish animasi recovery landing mereka.</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 7. Reset Situation (NEW) -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">🔄</span>
+            <h2>Reset Situation <span class="tag new">New</span></h2>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="section-body">
+            <ul class="tip-list">
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Kena combo buruk? → <strong>Dash menjauh dan tunggu posture pulih penuh</strong> dulu. Jangan terburu-buru balik menyerang — itu jebakan yang membuat kebanyakan player double-punished.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Tunggu minimum 2 detik</strong> setelah recovery sebelum kembali ke offense. Waktu ini cukup untuk membaca apakah lawan akan mengejar atau justru menunggu.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Kalau lawan mengejar saat kamu reset → gunakan momentum mereka: <strong>block/parry saat mereka datang</strong> daripada terus mundur. Jangan reset sambil berlari tanpa rencana.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Reset juga berlaku secara mental — kalau kamu sedang tilted atau terlalu reaktif, <strong>mundur ke neutral stance</strong> dan observe selama beberapa detik sebelum re-engage.</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 8. Advanced Techniques -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">🔱</span>
+            <h2>Advanced Techniques</h2>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="section-body">
+            <ul class="tip-list">
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Dash + Attack</strong> langsung setelah dodge — ini combo starter yang kuat karena lawan biasanya masih dalam animasi recovery dari serangan yang baru di-dodge.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Advance selalu dalam <strong>guard/block stance</strong> — jangan pernah approach terbuka.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Setelah kena parry di opening + sudah dash mundur → langsung pilih: <strong>light/heavy attack</strong> atau <strong>jump attack</strong> berdasarkan jarak dan kondisi posture.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Perfect Parry</strong> = posture break besar + window punish lebar. Pelajari timing ini sebagai investasi skill jangka panjang yang mengubah permainan.</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 9. Ultimate & Resource -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">🌟</span>
+            <h2>Ultimate &amp; Resource</h2>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="section-body">
+            <ul class="tip-list">
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Pantau <strong>Ultimate bar lawan</strong> (merah). Jika hampir penuh → mundur atau interrupt sebelum mereka bisa menggunakannya.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Waktu terbaik pakai Ultimate: setelah lawan <strong>kena finisher move</strong> — selama animasi finisher, mereka tidak bisa dodge/block sejenak. Ini window paling bersih.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Ultimate setelah <strong>parry sukses</strong> atau saat lawan stunned juga efektif, tapi pastikan jarak cukup dekat agar Ultimate tidak meleset.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Jangan pakai Ultimate saat posture lawan masih penuh</strong> — mudah di-block atau di-dodge. Tunggu posture mereka melemah dulu untuk hasil maksimal.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Bangun Ultimate bar dengan <strong>consistent hit + perfect parry</strong>. Setiap perfect parry memberi kontribusi besar ke pengisian bar.</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 10. Read by Weapon (NEW) -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">⚔️</span>
+            <h2>Read by Weapon Type <span class="tag new">New</span></h2>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="section-body">
+            <ul class="tip-list">
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Katana</strong> — combo cepat dengan rhythm teratur dan pattern yang konsisten. Mudah di-parry setelah kamu hafal ritme-nya. Lawan Katana: bersabar, biarkan mereka commit ke combo, lalu parry di hit ke-2 atau ke-3.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Dual Daggers</strong> — serangan cepat dan banyak dalam satu combo. Jangan coba parry semua hit — tunggu momentum yang tepat (biasanya di jeda antara string pertama dan kedua) dan parry di sana saja.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Naginata / Spear</strong> — range sangat panjang, berbahaya jika lawan maju lurus. Counter: <strong>dash ke samping</strong> (bukan mundur) lalu immediately hit saat mereka masih dalam recovery swing. Mundur lurus hanya membuat mereka re-engage dengan mudah.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Secara umum: <strong>pelajari pola tiap senjata</strong> di Lobby dulu sebelum ranked. Satu sesi practice vs senjata baru jauh lebih valuable daripada belajar di tengah ranked yang sebenarnya.</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 11. Mind Game & Psikologi -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">🧠</span>
+            <h2>Mind Game &amp; Psikologi</h2>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="section-body">
+            <ul class="tip-list">
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Conditioning</strong>: tes gaya lawan di awal ronde, identifikasi habit mereka, lalu abuse secara konsisten setelahnya.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Jangan over-rely pada satu teknik. <strong>Parry spam, jump spam, heavy spam</strong> — semua bisa dibaca dan di-counter kalau terlalu sering.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Lawan agresif → <strong>mundur sambil kasih hit ringan</strong> untuk keep pressure tanpa overcommit. Biarkan mereka kelelahan sendiri.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Kalah ronde pertama? → <strong>Jangan terburu-buru di ronde 2</strong>. Ini jebakan mental paling umum. Tarik napas, ganti pendekatan — kalau tadi agresif, coba lebih defensive dan sebaliknya.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Psychological reset</strong>: kalau kamu sedang tilted atau terlalu emosi, sadar dulu bahwa itu yang terjadi. Satu detik kesadaran bisa mengubah sisa pertandingan.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Selalu adaptasi</strong>. Tidak ada build atau strategi yang bekerja 100% di semua situasi. Fleksibilitas adalah skill tertinggi.</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 12. Tips Tambahan & Pemula -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">📌</span>
+            <h2>Tips Tambahan &amp; Pemula</h2>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="section-body">
+            <ul class="tip-list">
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Latihan di <strong>Lobby</strong> (area aman) sebelum ranked — jangan belajar di tengah match kompetitif.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Mulai dengan <strong>Katana</strong> — senjata paling seimbang dari segi speed, range, dan damage. Ideal untuk membangun fondasi.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span>Prioritaskan skill ini dulu secara berurutan: (1) <strong>Timing Parry</strong> → (2) <strong>Positioning</strong> → (3) <strong>Combo Mixing</strong>. Jangan loncat-loncat.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Rekam atau review gameplay sendiri</strong> — banyak kesalahan yang tidak terasa saat bermain tapi terlihat jelas saat ditonton ulang.</span></li>
+                <li class="tip-item"><span class="tip-bullet">◆</span><span><strong>Konsisten latihan</strong> jauh lebih efektif daripada sesi panjang tapi jarang. 30 menit setiap hari lebih baik dari 5 jam sekali seminggu.</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 13. Metode Latihan 7 Hari BETON -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">🗓️</span>
+            <h2>Metode Latihan 7 Hari Jadi BETON <span class="tag advanced">Program</span></h2>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="section-body">
+
+            <!-- Intro -->
+            <div class="beton-intro">
+                <p>Program ini dirancang untuk membangun <strong>muscle memory</strong> secara bertahap — dari skill dasar hingga eksekusi otomatis di situasi tekanan tinggi. Ikuti urutan harian, jangan loncat. Setiap hari punya <strong>fokus tunggal</strong> agar otak tidak overload.</p>
+                <div class="beton-rule-row">
+                    <div class="beton-rule-box">⏱️ <strong>30–45 menit/hari</strong></div>
+                    <div class="beton-rule-box">📍 <strong>Latihan di Lobby</strong></div>
+                    <div class="beton-rule-box">🔁 <strong>Repetisi &gt; Durasi</strong></div>
+                    <div class="beton-rule-box">🧘 <strong>Tenang, bukan ngebut</strong></div>
+                </div>
+            </div>
+
+            <!-- Hari 1 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <span class="day-badge">HARI 1</span>
+                    <span class="day-title">Fondasi Parry — Timing adalah Segalanya</span>
+                    <span class="day-duration">⏱ 35 menit</span>
+                </div>
+                <div class="day-goal">🎯 <strong>Tujuan:</strong> Melatih reflex parry di berbagai timing serangan lawan</div>
+                <div class="day-schedule">
+                    <div class="sched-item">
+                        <span class="sched-time">0–5 mnt</span>
+                        <span class="sched-desc"><strong>Warm-up</strong> — Baca ulang section "Parry &amp; Defense" di halaman ini. Visualisasikan gerakan sebelum praktik.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">5–20 mnt</span>
+                        <span class="sched-desc"><strong>Drill Parry Dasar</strong> — Minta teman atau gunakan bot. Biarkan lawan menyerang, fokus HANYA pada parry. Jangan balas sama sekali. Target: parry 8 dari 10 serangan berturut-turut tanpa gagal.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">20–30 mnt</span>
+                        <span class="sched-desc"><strong>Drill Perfect Parry</strong> — Ulangi parry dengan timing lebih ketat. Rasakan perbedaan "parry biasa" vs "perfect parry" (feedback visual/suara berbeda). Ulang 50x tanpa target menang/kalah.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">30–35 mnt</span>
+                        <span class="sched-desc"><strong>Refleksi</strong> — Catat di mana kamu paling sering gagal parry (terlalu cepat? terlambat?). Ini data berharga untuk hari berikutnya.</span>
+                    </div>
+                </div>
+                <div class="day-checkpoint">✅ <strong>Checkpoint:</strong> Bisa parry serangan lawan tanpa panik saat mereka attack</div>
+            </div>
+
+            <!-- Hari 2 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <span class="day-badge day2">HARI 2</span>
+                    <span class="day-title">Combo &amp; Tempo — Jadi Tidak Terbaca</span>
+                    <span class="day-duration">⏱ 40 menit</span>
+                </div>
+                <div class="day-goal">🎯 <strong>Tujuan:</strong> Melatih variasi combo agar tidak predictable</div>
+                <div class="day-schedule">
+                    <div class="sched-item">
+                        <span class="sched-time">0–5 mnt</span>
+                        <span class="sched-desc"><strong>Warm-up</strong> — Parry drill singkat (ulangi 20x) untuk aktifkan reflex dari hari kemarin.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">5–15 mnt</span>
+                        <span class="sched-desc"><strong>Drill Combo Dasar</strong> — Eksekusi combo L-L-H (light-light-heavy) berulang sampai terasa fluent. Lakukan 30x berturut-turut ke dummy/bot tanpa putus.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">15–28 mnt</span>
+                        <span class="sched-desc"><strong>Drill Delay &amp; Mix Tempo</strong> — Masukkan jeda di hit ke-2. Coba pola: L → (pause 0.5 detik) → L-H. Kemudian variasikan: L-H → (pause) → L. Latih 40x dengan variasi timing berbeda-beda, jangan hafal satu pola saja.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">28–40 mnt</span>
+                        <span class="sched-desc"><strong>Sparring Ringan vs Lawan</strong> — Terapkan combo dengan delay ke lawan nyata. Fokus bukan pada menang, tapi pada berhasil memasukkan delay tanpa panik. Jika lawan parry → jangan lanjut, reset dan coba lagi.</span>
+                    </div>
+                </div>
+                <div class="day-checkpoint">✅ <strong>Checkpoint:</strong> Bisa mengeksekusi minimal 3 pola combo berbeda dengan delay dalam satu sparring</div>
+            </div>
+
+            <!-- Hari 3 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <span class="day-badge day3">HARI 3</span>
+                    <span class="day-title">Movement &amp; Positioning — Kuasai Tengah Arena</span>
+                    <span class="day-duration">⏱ 35 menit</span>
+                </div>
+                <div class="day-goal">🎯 <strong>Tujuan:</strong> Membangun kebiasaan posisi yang sadar dan terkontrol</div>
+                <div class="day-schedule">
+                    <div class="sched-item">
+                        <span class="sched-time">0–5 mnt</span>
+                        <span class="sched-desc"><strong>Warm-up</strong> — Cek posisi kamu di awal match. Latih kebiasaan: begitu match mulai, langsung gerak ke tengah arena, bukan langsung menyerang.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">5–18 mnt</span>
+                        <span class="sched-desc"><strong>Drill Positioning Sadar</strong> — Selama sparring, HANYA fokus pada posisi. Izinkan dirimu kena hit, tapi pastikan kamu selalu kembali ke tengah setelah setiap exchange. Lakuan 5 ronde sparring singkat.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">18–28 mnt</span>
+                        <span class="sched-desc"><strong>Drill Chase &amp; Retreat</strong> — Latih pola zigzag saat kabur. Lari ke pojok → sadar → dash ke tengah. Ulangi 20x. Kemudian latih mengejar lawan dengan curve (bukan lurus), 20x.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">28–35 mnt</span>
+                        <span class="sched-desc"><strong>Review Mental</strong> — Ingat kembali: saat posture kritis → prioritas adalah positioning dulu, bukan counter attack. Visualisasikan skenario ini di kepala 5x.</span>
+                    </div>
+                </div>
+                <div class="day-checkpoint">✅ <strong>Checkpoint:</strong> Sepanjang match sadar di mana posisimu relatif terhadap tengah arena</div>
+            </div>
+
+            <!-- Hari 4 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <span class="day-badge day4">HARI 4</span>
+                    <span class="day-title">Parry Baiting — Jebak Lawan Secara Sadar</span>
+                    <span class="day-duration">⏱ 40 menit</span>
+                </div>
+                <div class="day-goal">🎯 <strong>Tujuan:</strong> Melatih teknik fake pressure dan bait parry secara disengaja</div>
+                <div class="day-schedule">
+                    <div class="sched-item">
+                        <span class="sched-time">0–5 mnt</span>
+                        <span class="sched-desc"><strong>Warm-up</strong> — Parry drill 20x + combo drill 10x dari hari 1 dan 2. Aktifkan baseline reflex.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">5–18 mnt</span>
+                        <span class="sched-desc"><strong>Drill Fake Pressure</strong> — Step ke lawan seolah mau menyerang → cancel → mundur. Lakukan ini 30x berturut-turut. Fokus pada gerakan cancel yang meyakinkan (jangan tanggung). Tujuannya lawan merasa terancam lalu parry duluan.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">18–32 mnt</span>
+                        <span class="sched-desc"><strong>Drill Step-In Step-Out</strong> — Masuk ke range serang → tunggu parry lawan → keluar → tunggu cooldown → masuk lagi dan hit. Ulangi pola ini 25x. Catat berapa kali berhasil hit setelah bait.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">32–40 mnt</span>
+                        <span class="sched-desc"><strong>Sparring Bait-Focused</strong> — Satu sesi sparring penuh dengan aturan: setiap attack harus didahului minimal 1x fake dulu. Paksa dirimu tidak langsung menyerang tanpa setup bait.</span>
+                    </div>
+                </div>
+                <div class="day-checkpoint">✅ <strong>Checkpoint:</strong> Berhasil memancing parry lawan dan menghukum cooldown mereka minimal 5x dalam satu sparring</div>
+            </div>
+
+            <!-- Hari 5 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <span class="day-badge day5">HARI 5</span>
+                    <span class="day-title">Posture &amp; Resource — Baca Bar, Bukan Cuma HP</span>
+                    <span class="day-duration">⏱ 35 menit</span>
+                </div>
+                <div class="day-goal">🎯 <strong>Tujuan:</strong> Melatih mata untuk aktif memantau posture bar + Ultimate bar selama fight</div>
+                <div class="day-schedule">
+                    <div class="sched-item">
+                        <span class="sched-time">0–5 mnt</span>
+                        <span class="sched-desc"><strong>Warm-up</strong> — Baca ulang section "Posture &amp; Shield Management" dan "Ultimate &amp; Resource". Tanam di kepala: posture bar &gt; HP bar dalam prioritas baca.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">5–20 mnt</span>
+                        <span class="sched-desc"><strong>Drill Posture Awareness</strong> — Sparring dengan satu aturan ketat: SETIAP 3 detik, verbalisasi (atau sadari dalam hati) kondisi posture lawan — "tinggi / sedang / kritis". Paksa matamu untuk terus scan bar, bukan hanya karakter lawan.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">20–30 mnt</span>
+                        <span class="sched-desc"><strong>Drill Abuse Posture Rendah</strong> — Begitu posture lawan &lt;30%, aktifkan mode agresif tanpa jeda. Latih pola: posture lawan kritis → langsung tekan tanpa berhenti. Lakukan di 5 ronde sparring berbeda.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">30–35 mnt</span>
+                        <span class="sched-desc"><strong>Drill Ultimate Timing</strong> — Sesi khusus: hanya gunakan Ultimate setelah Finisher move atau setelah Perfect Parry. Paksa dirimu TIDAK memakai Ultimate secara random. Hitung berapa kali berhasil pakai di timing yang tepat.</span>
+                    </div>
+                </div>
+                <div class="day-checkpoint">✅ <strong>Checkpoint:</strong> Tidak pernah melewatkan window posture kritis lawan tanpa mengeksploitasinya</div>
+            </div>
+
+            <!-- Hari 6 -->
+            <div class="day-card">
+                <div class="day-header">
+                    <span class="day-badge day6">HARI 6</span>
+                    <span class="day-title">Read &amp; Adapt — Baca Lawan, Bukan Cuma Skill Sendiri</span>
+                    <span class="day-duration">⏱ 45 menit</span>
+                </div>
+                <div class="day-goal">🎯 <strong>Tujuan:</strong> Melatih kemampuan membaca habit lawan dan mengadaptasi strategi di tengah fight</div>
+                <div class="day-schedule">
+                    <div class="sched-item">
+                        <span class="sched-time">0–5 mnt</span>
+                        <span class="sched-desc"><strong>Warm-up</strong> — Review section "Mind Game &amp; Psikologi" dan "Read by Weapon Type". Fokus pada konsep conditioning.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">5–20 mnt</span>
+                        <span class="sched-desc"><strong>Drill Identifikasi Habit</strong> — Sparring dengan satu tujuan: di 10 detik pertama, identifikasi satu kebiasaan lawan (sering parry? sering dodge? sering jump attack?). Ucapkan dalam hati, lalu coba exploit habit tersebut 3x berturut-turut.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">20–35 mnt</span>
+                        <span class="sched-desc"><strong>Drill Counter per Senjata</strong> — Minta lawan pakai Katana → latih parry di hit ke-2/ke-3. Ganti ke Dual Daggers → latih sabar menunggu jeda antar-string. Ganti ke Naginata → latih dash ke samping. Minimal 10 menit per senjata.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">35–45 mnt</span>
+                        <span class="sched-desc"><strong>Sparring Adaptif</strong> — Satu sesi panjang. Aturan: setiap kali kamu kalah ronde, WAJIB ganti pendekatan (kalau agresif → defensive, kalau wait-and-parry → coba pressure). Paksa otakmu fleksibel.</span>
+                    </div>
+                </div>
+                <div class="day-checkpoint">✅ <strong>Checkpoint:</strong> Bisa menyebutkan satu kebiasaan spesifik lawan setelah 15 detik pertama fight</div>
+            </div>
+
+            <!-- Hari 7 -->
+            <div class="day-card day7-card">
+                <div class="day-header">
+                    <span class="day-badge day7">HARI 7</span>
+                    <span class="day-title">🔥 INTEGRATION DAY — Semua Jadi Satu</span>
+                    <span class="day-duration">⏱ 45 menit</span>
+                </div>
+                <div class="day-goal">🎯 <strong>Tujuan:</strong> Mengintegrasikan semua skill menjadi satu aliran yang otomatis dan natural</div>
+                <div class="day-schedule">
+                    <div class="sched-item">
+                        <span class="sched-time">0–5 mnt</span>
+                        <span class="sched-desc"><strong>Mental Prep</strong> — Baca seluruh tips di halaman ini sekilas. Tidak perlu detail, cukup refresh ingatan. Kemudian 1 menit: tarik napas, bayangkan sesi ideal yang kamu mau jalankan hari ini.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">5–15 mnt</span>
+                        <span class="sched-desc"><strong>Integration Drill</strong> — Sparring bebas, tapi AKTIF terapkan semua skill: parry timing, combo dengan delay, posisi tengah, bait sesekali, pantau posture bar. Jangan fokus pada satu skill saja — rasakan semuanya berjalan bersamaan.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">15–30 mnt</span>
+                        <span class="sched-desc"><strong>Test Match Nyata</strong> — Masuk ke ranked atau match kompetitif ringan. Tujuannya bukan menang, tapi observasi: skill mana yang sudah "otomatis" dan mana yang masih perlu dipikir sadar. Catat hasilnya.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">30–40 mnt</span>
+                        <span class="sched-desc"><strong>Targeted Drill</strong> — Dari observasi tadi, pilih 1–2 skill yang masih terasa sadar/belum otomatis. Drill skill tersebut saja selama 10 menit dengan repetisi tinggi.</span>
+                    </div>
+                    <div class="sched-item">
+                        <span class="sched-time">40–45 mnt</span>
+                        <span class="sched-desc"><strong>Post-Session Review</strong> — Evaluasi jujur: apa yang sudah BETON? Apa yang masih goyah? Tulis atau ingat 3 hal yang ingin diperdalam di minggu berikutnya.</span>
+                    </div>
+                </div>
+                <div class="day-checkpoint">✅ <strong>Checkpoint Final:</strong> Minimal 3 skill dari program ini terasa "otomatis" tanpa perlu berpikir sadar saat fight</div>
+            </div>
+
+            <!-- Summary Tips Program -->
+            <div class="beton-summary">
+                <h3>📋 Prinsip Program BETON</h3>
+                <div class="beton-principles">
+                    <div class="principle-item"><span class="prin-num">01</span><span><strong>Satu fokus per hari.</strong> Otak membangun muscle memory lebih cepat ketika tidak overload dengan banyak hal sekaligus.</span></div>
+                    <div class="principle-item"><span class="prin-num">02</span><span><strong>Repetisi sadar &gt; repetisi banyak.</strong> 30 repetisi dengan perhatian penuh > 100 repetisi sambil auto-pilot.</span></div>
+                    <div class="principle-item"><span class="prin-num">03</span><span><strong>Jangan skip hari dasar.</strong> Hari 1–3 adalah fondasi. Tanpa fondasi kuat, hari 4–7 tidak akan efektif.</span></div>
+                    <div class="principle-item"><span class="prin-num">04</span><span><strong>Lobby dulu, ranked kemudian.</strong> Semua drill dilakukan di Lobby. Ranked hanya untuk validation di Hari 7.</span></div>
+                    <div class="principle-item"><span class="prin-num">05</span><span><strong>Ulangi program jika perlu.</strong> Setelah 7 hari, evaluasi. Skill yang belum otomatis → ulangi hari spesifiknya selama seminggu lagi.</span></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Summary Table -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <span class="section-icon">📊</span>
+            <h2>Status Kelengkapan Tips</h2>
+            <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="section-body">
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Kategori</th>
+                        <th>Status</th>
+                        <th>Catatan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Parry &amp; Defense</td><td class="status-ok">✅ Lengkap</td><td>Sudah ditambah detail posture kritis</td></tr>
+                    <tr><td>Parry Baiting</td><td class="status-ok">✅ Baru ditambah</td><td>Teknik paling advanced di file ini</td></tr>
+                    <tr><td>Combo &amp; Timing</td><td class="status-ok">✅ Lengkap</td><td>Sudah ada detail delay &amp; anti-jump</td></tr>
+                    <tr><td>Posture Management</td><td class="status-ok">✅ Baru ditambah</td><td>Termasuk abuse posture lawan</td></tr>
+                    <tr><td>Movement &amp; Positioning</td><td class="status-ok">✅ Lengkap</td><td>Termasuk teknik dash ke bawah</td></tr>
+                    <tr><td>Anti-Jump Attack</td><td class="status-ok">✅ Baru ditambah</td><td>3 opsi counter lengkap</td></tr>
+                    <tr><td>Reset Situation</td><td class="status-ok">✅ Baru ditambah</td><td>Termasuk aspek mental reset</td></tr>
+                    <tr><td>Advanced Techniques</td><td class="status-ok">✅ Lengkap</td><td>Perfect Parry, dash attack</td></tr>
+                    <tr><td>Ultimate &amp; Resource</td><td class="status-ok">✅ Diperluas</td><td>Termasuk timing finisher</td></tr>
+                    <tr><td>Read by Weapon</td><td class="status-ok">✅ Baru ditambah</td><td>Katana, Dual Daggers, Naginata</td></tr>
+                    <tr><td>Mind Game &amp; Psikologi</td><td class="status-ok">✅ Diperluas</td><td>Termasuk psychological reset</td></tr>
+                    <tr><td>Tips Pemula</td><td class="status-ok">✅ Lengkap</td><td>Urutan prioritas skill jelas</td></tr>
+                    <tr><td>Program Latihan 7 Hari BETON</td><td class="status-ok">✅ Baru ditambah</td><td>Muscle memory + jadwal harian lengkap</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><span class="highlight">Simpan tips ini, baca berulang, lalu langsung praktekkan di lobby.</span><br>
+        Konsisten latihan = cepat naik rank ⚔️</p>
+        <p class="copyright">© Copyright by Ray · All Rights Reserved · Duelground Tips v3.0</p>
+    </div>
+
+</div>
+</div>
+
+<script>
+    // Pure JS SHA-256 implementation (compatible with file:// protocol)
+    function sha256(ascii) {
+        function rightRotate(value, amount) {
+            return (value >>> amount) | (value << (32 - amount));
+        }
+        var maxWord = Math.pow(2, 32);
+        var lengthProperty = 'length';
+        var i, j;
+        var result = '';
+        var words = [];
+        var asciiLength = ascii[lengthProperty] * 8;
+        var hash = [0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19];
+        var k = [
+            0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+            0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+            0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+            0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+            0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+            0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+            0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+            0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+        ];
+        
+        ascii += '\x80';
+        while (ascii[lengthProperty] % 64 - 56) ascii += '\x00';
+        for (i = 0; i < ascii[lengthProperty]; i++) {
+            j = ascii.charCodeAt(i);
+            words[i >> 2] |= j << ((3 - i) % 4) * 8;
+        }
+        words[words[lengthProperty]] = ((asciiLength / maxWord) | 0);
+        words[words[lengthProperty]] = (asciiLength | 0);
+        
+        for (j = 0; j < words[lengthProperty];) {
+            var w = words.slice(j, j += 16);
+            var oldHash = hash.slice(0);
+            
+            for (i = 0; i < 64; i++) {
+                var wItem = w[i];
+                if (i >= 16) {
+                    var s0 = rightRotate(w[i - 15], 7) ^ rightRotate(w[i - 15], 18) ^ (w[i - 15] >>> 3);
+                    var s1 = rightRotate(w[i - 2], 17) ^ rightRotate(w[i - 2], 19) ^ (w[i - 2] >>> 10);
+                    wItem = w[i] = (w[i - 16] + s0 + w[i - 7] + s1) | 0;
+                }
+                var a = hash[0], e = hash[4];
+                var temp1 = (hash[7] + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25)) + ((e & hash[5]) ^ (~e & hash[6])) + k[i] + wItem) | 0;
+                var temp2 = ((rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22)) + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]))) | 0;
+                
+                hash = [(temp1 + temp2) | 0].concat(hash);
+                hash[4] = (hash[4] + temp1) | 0;
+                hash.pop();
+            }
+            for (i = 0; i < 8; i++) {
+                hash[i] = (hash[i] + oldHash[i]) | 0;
+            }
+        }
+        for (i = 0; i < 8; i++) {
+            for (j = 3; j + 1; j--) {
+                var b = (hash[i] >>> (j * 8)) & 255;
+                result += ((b < 16) ? '0' : '') + b.toString(16);
+            }
+        }
+        return result;
+    }
+
+    // SHA-256 hash of "yamana123"
+    const correctPasswordHash = "4f49a7e97fd810e708d9206ae6e1eaaa2298620c5f6a250bc2982b257d4ab0a4";
+
+    function checkPassword() {
+        const input = document.getElementById("pass-input").value;
+        const errorMsg = document.getElementById("error-msg");
+        
+        // Match user input hash to target hash
+        if (sha256(input) === correctPasswordHash) {
+            const ps = document.getElementById("password-screen");
+            ps.style.opacity = "0";
+            ps.style.transition = "opacity 0.4s ease";
+            setTimeout(() => {
+                ps.style.display = "none";
+                const mc = document.getElementById("main-content");
+                mc.classList.remove("hidden");
+                mc.style.opacity = "0";
+                mc.style.transition = "opacity 0.5s ease";
+                requestAnimationFrame(() => { mc.style.opacity = "1"; });
+            }, 400);
+        } else {
+            errorMsg.textContent = "Password salah! Coba lagi.";
+            const inp = document.getElementById("pass-input");
+            inp.value = "";
+            inp.classList.add("shake");
+            inp.focus();
+            setTimeout(() => inp.classList.remove("shake"), 500);
+        }
+    }
+
+    document.getElementById("pass-input").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") checkPassword();
+    });
+
+    function toggleSection(header) {
+        const section = header.closest(".section");
+        section.classList.toggle("collapsed");
+    }
+
+    // ─── Anti-Inspect / Anti-Developer Tools Protections ───
+    
+    // 1. Disable Right Click Context Menu
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    // 2. Disable Keyboard Shortcuts (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S)
+    document.addEventListener('keydown', function(e) {
+        // Disable F12 (keyCode 123)
+        if (e.key === 'F12' || e.keyCode === 123) {
+            e.preventDefault();
+            return false;
+        }
+        // Disable Ctrl+Shift+I (inspect)
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) {
+            e.preventDefault();
+            return false;
+        }
+        // Disable Ctrl+Shift+J (console)
+        if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) {
+            e.preventDefault();
+            return false;
+        }
+        // Disable Ctrl+U (source code)
+        if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) {
+            e.preventDefault();
+            return false;
+        }
+        // Disable Ctrl+S (save page)
+        if (e.ctrlKey && (e.key === 'S' || e.key === 's' || e.keyCode === 83)) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // 3. DevTools Debugger loop: pauses debugger panel if DevTools is open
+    (function() {
+        const devtoolsTest = () => {
+            setInterval(() => {
+                (function() {
+                    return false;
+                }
+                ["constructor"]("debugger")
+                ["call"]());
+            }, 100);
+        };
+        try {
+            devtoolsTest();
+        } catch (err) {}
+    })();
+</script>
+
+<style>
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}
+.shake { animation: shake 0.4s ease; border-color: var(--red) !important; }
+
+/* ─── 7-Day BETON Section ─── */
+.beton-intro {
+    background: linear-gradient(135deg, rgba(231,76,60,0.1), rgba(192,57,43,0.07));
+    border: 1px solid rgba(231,76,60,0.25);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+}
+
+.beton-rule-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.beton-rule-box {
+    background: rgba(231,76,60,0.15);
+    border: 1px solid rgba(231,76,60,0.3);
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 13px;
+    color: var(--accent);
+    white-space: nowrap;
+}
+
+.day-card {
+    background: var(--bg-card2);
+    border: 1px solid rgba(231,76,60,0.2);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+}
+
+.day-card:hover {
+    box-shadow: 0 0 24px rgba(231,76,60,0.15);
+}
+
+.day7-card {
+    border-color: rgba(255,215,0,0.35);
+    background: linear-gradient(135deg, rgba(192,57,43,0.08), rgba(255,215,0,0.04));
+}
+
+.day-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 16px;
+    background: linear-gradient(90deg, rgba(231,76,60,0.2) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(231,76,60,0.18);
+}
+
+.day-badge {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    background: var(--primary-glow);
+    color: #fff;
+    padding: 4px 11px;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.day2 { background: #1a6b9a; }
+.day3 { background: #1a7a4a; }
+.day4 { background: #8a4a00; }
+.day5 { background: #922b21; }
+.day6 { background: #1a4a8a; }
+.day7 { background: linear-gradient(135deg, #c0392b, #c8a000); }
+
+.day-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--primary-bright);
+    flex: 1;
+    letter-spacing: 0.5px;
+}
+
+.day-duration {
+    font-size: 12px;
+    color: var(--gold);
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.day-goal {
+    padding: 10px 16px;
+    font-size: 13px;
+    color: var(--accent);
+    background: rgba(231,76,60,0.07);
+    border-bottom: 1px solid rgba(231,76,60,0.12);
+}
+
+.day-schedule {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sched-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 9px 12px;
+    background: rgba(0,0,0,0.18);
+    border-radius: 8px;
+    border-left: 3px solid rgba(231,76,60,0.4);
+    font-size: 13.5px;
+    line-height: 1.6;
+}
+
+.sched-time {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 12px;
+    white-space: nowrap;
+    min-width: 72px;
+    padding-top: 2px;
+    letter-spacing: 0.5px;
+}
+
+.sched-desc {
+    color: var(--text);
+    flex: 1;
+}
+
+.day-checkpoint {
+    padding: 10px 16px;
+    font-size: 13px;
+    color: var(--green);
+    background: rgba(46,204,113,0.07);
+    border-top: 1px solid rgba(46,204,113,0.15);
+}
+
+.beton-summary {
+    margin-top: 20px;
+    background: linear-gradient(135deg, rgba(231,76,60,0.1), rgba(192,57,43,0.05));
+    border: 1px solid rgba(231,76,60,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+}
+
+.beton-summary h3 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--gold-bright);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+}
+
+.beton-principles {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.principle-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 13.5px;
+    line-height: 1.6;
+}
+
+.prin-num {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: rgba(231,76,60,0.5);
+    min-width: 28px;
+    line-height: 1.3;
+}
+
+@media (max-width: 500px) {
+    .beton-rule-row { gap: 8px; }
+    .beton-rule-box { font-size: 12px; padding: 6px 10px; }
+    .sched-item { flex-direction: column; gap: 4px; }
+    .sched-time { min-width: unset; }
+    .day-header { gap: 8px; }
+}
+</style>
+
+</body>
+</html>
